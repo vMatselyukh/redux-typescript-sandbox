@@ -1,15 +1,19 @@
-import { Action } from "redux";
-import { Todo } from "../models/todo";
+
+import { combineReducers, Reducer } from "redux";
+import { TodosActions } from "../actionCreators/interfaces";
+import { ITodoState, initialTodosState, RootState } from "../store/state";
 
 
-const rootReducer = (state: Todo[] = [], action: any): Todo[] => {
-    
-    if(action.type === "GET_ALL_TODOS")
-    {
-        console.log("reducer", action.payload);
+const todosReducer: Reducer<ITodoState, TodosActions> = (state = initialTodosState, action) => {
+
+    if (action.type === "GET_TODOS") {
+        console.log("reducer", action.todos);
+        return state;
     }
-    
+
     return state;
 }
 
-export default rootReducer;
+export const rootReducer = combineReducers<RootState>({
+    todosState: todosReducer
+});

@@ -1,7 +1,14 @@
-import { createStore, combineReducers, applyMiddleware, DeepPartial } from 'redux'
+import { createStore, combineReducers, applyMiddleware, DeepPartial, Store } from 'redux'
 import thunk from 'redux-thunk'
-import rootReducer from "../reducers/rootReducer"
+import {rootReducer} from "../reducers/rootReducer"
+import { RootState } from './state';
 
-export default createStore(
-  rootReducer
-, applyMiddleware(thunk))
+// export default createStore(
+//   rootReducer,
+//   undefined, 
+//   applyMiddleware(thunk))
+
+export const store = createStore(
+    rootReducer,
+    applyMiddleware(thunk)
+)

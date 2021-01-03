@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import TodoList from './components/todoList';
-import store from './store/store';
+import {store} from './store/store';
 
 const App: React.FC = () => {
   return (
@@ -13,3 +13,7 @@ const App: React.FC = () => {
 }
 
 export default App;
+
+
+//article
+//https://www.carlrippon.com/strongly-typed-react-redux-code-with-typescript/
