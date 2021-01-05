@@ -19,7 +19,10 @@ class TodoList extends React.Component<TodoProps, TodoState> {
     
     componentDidMount(){
         this.props.getTodosList().then(ff =>
-            console.log(ff.todos));
+            {
+            console.log(ff.type);
+            console.log(ff.todos);
+            })
     }
     
     render(): JSX.Element {
