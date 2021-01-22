@@ -1,14 +1,13 @@
 import React from "react";
-import { connect, DispatchProp } from "react-redux";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {Dispatch , bindActionCreators, Action, AnyAction} from "redux"
-import { AppThunk, ITodoState, RootState } from "../store/state";
-import { getTodosActionCreator } from "../actionCreators/todosActions";
+import { connect } from "react-redux";
+import { ThunkDispatch} from "redux-thunk";
+import { getTodosActionCreator, todosReadyActionCreator } from "../actionCreators/todosActions";
 import { Todo } from "../models/todo";
-import { IGetTodosAction } from "../actionCreators/interfaces";
+import { IGetTodosAction, ITodosReadyAction } from "../actionCreators/interfaces";
 
 interface TodoProps {
-    getTodosList: () => Promise<IGetTodosAction>
+    getTodosList: () => Promise<IGetTodosAction>,
+    todosReady: () => ITodosReadyAction
 }
 
 type TodoState = {
@@ -19,10 +18,12 @@ class TodoList extends React.Component<TodoProps, TodoState> {
     
     componentDidMount(){
         this.props.getTodosList().then(ff =>
-            {
+        {
             console.log(ff.type);
             console.log(ff.todos);
-            })
+        })
+
+        this.props.todosReady();
     }
     
     render(): JSX.Element {
@@ -34,8 +35,9 @@ class TodoList extends React.Component<TodoProps, TodoState> {
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<Todo[], null, IGetTodosAction>): TodoProps => ({
-    getTodosList: () => dispatch(getTodosActionCreator())
+const mapDispatchToProps = (dispatch: ThunkDispatch<Todo[], null, IGetTodosAction | ITodosReadyAction>): TodoProps => ({
+    getTodosList: () => dispatch(getTodosActionCreator()),
+    todosReady: () => dispatch(todosReadyActionCreator())
 })
 
 export default connect(null, mapDispatchToProps)(TodoList)

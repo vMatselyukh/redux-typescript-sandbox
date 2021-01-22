@@ -13,6 +13,7 @@ export const getTodosActionCreator: ActionCreator<ThunkAction<
 >> = () => {
     return async (dispatch: Dispatch) => {
         const todosList = await new TodoApi().getTodos();
+
         const getTodosAction: IGetTodosAction = {
             todos: todosList.data,
             type: "GET_TODOS"
@@ -21,3 +22,14 @@ export const getTodosActionCreator: ActionCreator<ThunkAction<
         return dispatch(getTodosAction);;
     }
 }
+
+export const todosReadyActionCreator: ActionCreator<ITodosReadyAction> = (): ITodosReadyAction => {
+
+    const todosReadyAction: ITodosReadyAction = {
+        type: "TODOS_READY"
+    };
+
+    return todosReadyAction;
+}
+
+
